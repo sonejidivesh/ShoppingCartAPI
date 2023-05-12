@@ -17,13 +17,22 @@ namespace Intution_API.Controllers
         {
             _unitOfWork = unitOfWork;
         }
-
+        /// <summary>
+        /// Get list of all cart items
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <returns>status code with json object of the list</returns>
         [HttpGet]
         public async  Task<IActionResult> GetCartItem(int customerId)
         {
             return Ok(await _unitOfWork.Carts.GetAll(customerId));
         }
 
+        /// <summary>
+        /// sets the product into the cart as cart item
+        /// </summary>
+        /// <param name="cart"></param>
+        /// <returns></returns>
 
         [HttpPost]
         public async Task<IActionResult> Add(CartDTO cart)
@@ -47,7 +56,11 @@ namespace Intution_API.Controllers
 
         }
 
-
+        /// <summary>
+        /// Delete the item from the cart based on id that is cart item id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteItem(int id)
