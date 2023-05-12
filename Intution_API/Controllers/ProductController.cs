@@ -8,13 +8,15 @@ using System.Security.Cryptography.Xml;
 
 namespace Intution_API.Controllers
 {
+    /// <summary>
+    /// Thi sis the produc endpoint which has 5 endpoints GET, POST, GET{ID}, DELETE,PATCH
+    /// </summary>
+    
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-
-        //private static List<Product> _products = new List<Product>()
-    
 
         private readonly IUnitOfWork _unitOfWork;
         public ProductController( IUnitOfWork unitOfWork)
@@ -22,7 +24,12 @@ namespace Intution_API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-
+        /// <summary>
+        /// This function get a list of all products and the orders associated to it
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns> It return an action result and convert the list into json format </returns>
         [HttpGet]
         [Route("GetProducts")]
         public async Task<IActionResult> GetProducts(int pageSize =10, int pageIndex = 1)
@@ -34,6 +41,11 @@ namespace Intution_API.Controllers
         }
 
 
+        /// <summary>
+        /// This function gets a single product based on an id that 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> This returns an object of Product in json format. If record does not exist it send Not found in repsone</returns>
         [HttpGet("{id}")]
         public async Task< IActionResult> GetProductById(int id)
         {
@@ -47,6 +59,12 @@ namespace Intution_API.Controllers
 
         }
 
+
+        /// <summary>
+        /// This inserts product into the database
+        /// </summary>
+        /// <param name="productDetail"></param>
+        /// <returns> it return status 200 with the object so we can utlize the id generated</returns>
         [HttpPost]
         public async Task<IActionResult> PostProductById(ProductDTO productDetail)
         {
@@ -67,6 +85,12 @@ namespace Intution_API.Controllers
 
         }
 
+
+        /// <summary>
+        /// This function is an endpoint to delete
+        /// </summary>
+        /// <param name="productDetail"></param>
+        /// <returns> it return no content and not found if record does not exist</returns>
         [HttpDelete]
         public async  Task<IActionResult> DeleteProduct(ProductDTO productDetail)
         {
@@ -92,6 +116,12 @@ namespace Intution_API.Controllers
         }
 
 
+
+        /// <summary>
+        /// This function is used to update the record details 
+        /// </summary>
+        /// <param name="productDetail"></param>
+        /// <returns></returns>
         [HttpPatch]
        public async Task< IActionResult> UpdateProduct(ProductDTO productDetail)
         {
