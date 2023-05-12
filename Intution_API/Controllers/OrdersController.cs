@@ -22,7 +22,12 @@ namespace Intution_API.Controllers
             _unitOfWork = unitOfWork;
         }
 
-
+        /// <summary>
+        /// This function gets All orders
+        /// </summary>
+        /// <param name="pageSize"></param>
+        /// <param name="pageIndex"></param>
+        /// <returns>It return a json format of the list</returns>
         [HttpGet]
         public async Task<IActionResult> GetAllOrders(int pageSize = 10, int pageIndex = 1)
         {
@@ -30,6 +35,13 @@ namespace Intution_API.Controllers
             return Ok(orders);
         }
 
+
+
+        /// <summary>
+        /// This function gets single order based on ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns> Return single object with status OK</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderById(int id)
         {
@@ -44,7 +56,12 @@ namespace Intution_API.Controllers
         }
 
 
-
+        /// <summary>
+        /// This function post the customers cart into the ordering service
+        /// </summary>
+        /// <param name="customerId"></param>
+        /// <param name="deliveryAddress"></param>
+        /// <returns>returns status of update  </returns>
         [HttpPost("Checkout")]
         public async Task<IActionResult> Checkout(int customerId, string deliveryAddress)
         {
@@ -80,6 +97,11 @@ namespace Intution_API.Controllers
             return request;
         }
 
+        /// <summary>
+        /// This function generates the total cost of the cart by running through the cart 
+        /// </summary>
+        /// <param name="carts"></param>
+        /// <returns> returns the total price of the cart</returns>
         private double GetCartPrice(List<Cart> carts)
         {
             double price = 0;
@@ -90,7 +112,11 @@ namespace Intution_API.Controllers
 
             return price;
         }
-
+        /// <summary>
+        /// This function post the order 
+        /// </summary>
+        /// <param name="ordersDetails"></param>
+        /// <returns>returns status code with the json object</returns>
         [HttpPost]
         public async Task<IActionResult> PostOrder(OrderDTO ordersDetails)
         {
@@ -140,7 +166,11 @@ namespace Intution_API.Controllers
 
 
         }
-
+        /// <summary>
+        /// Update the product qty when order is placed
+        /// </summary>
+        /// <param name="productDetail"></param>
+        /// <returns>returns boolean </returns>
 
         private async Task<bool> UpdateProductQtyFromOrder(ProductDTO productDetail)
         {
@@ -162,7 +192,11 @@ namespace Intution_API.Controllers
 
         }
 
-
+        /// <summary>
+        /// This function updates the order address
+        /// </summary>
+        /// <param name="orderDetails"></param>
+        /// <returns></returns>
 
         [HttpPatch]
         public async Task<IActionResult> UPdateoOrederAddress(OrderDTO orderDetails)
@@ -188,7 +222,12 @@ namespace Intution_API.Controllers
 
         }
 
-
+        /// <summary>
+        /// This functions Delete the order item 
+        /// </summary>
+        /// <param name="orderId"></param>
+        /// <param name="productId"></param>
+        /// <returns> returns the status code of No Content and Not found</returns>
 
         [HttpDelete("DeleteItem")]
 
@@ -224,7 +263,11 @@ namespace Intution_API.Controllers
 
 
         }
-
+        /// <summary>
+        /// This function delete's the entier order
+        /// </summary>
+        /// <param name="ordersDetails"></param>
+        /// <returns></returns>
 
         [HttpDelete]
         public async Task<IActionResult> DeleteOrder(OrderDTO ordersDetails)
