@@ -16,6 +16,9 @@ namespace Intution_API.DTOModel
         [Required]
         public double Price { get; set; }
 
+        [Required]
+        public int CustomerId { get; set; }
+
 
     }
 }

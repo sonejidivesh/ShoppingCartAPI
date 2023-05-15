@@ -13,6 +13,8 @@ namespace Intution_API.Models
         public bool IsActive { get; set; } = true;
 
         public double Price { get; set; }
+
+        public int CustomerId { get; set; }
         public virtual  ICollection<ProductOrder?> ProductOrder { get; set; }
     }
 }

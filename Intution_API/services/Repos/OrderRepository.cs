@@ -27,6 +27,20 @@ namespace Intution_API.services.Repos
 
         }
 
+        public async Task<List<Order>> GetAllOrderBasedonCutomerIdAsync(int customerId, int pageSize =10, int pageIndex =1 )
+        {
+            try
+            {
+                return await _context.Orders.Include(x => x.ProductOrder).Where(x=>x.CustomerId == customerId).Skip(pageSize * (pageIndex - 1)).Take(pageSize).ToListAsync();
+            }
+            catch (Exception ex)
+            {
+
+                _logger.LogWarning(ex.Message);
+                return new List<Order>();
+
+            }
+        }
 
         public override async Task<Order?> GetValueAsync(int id)
         {
@@ -90,5 +104,6 @@ namespace Intution_API.services.Repos
             }
         }
 
+       
     }
 }

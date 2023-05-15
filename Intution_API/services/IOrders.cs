@@ -6,5 +6,8 @@ namespace Intution_API.services
     {
         Task<Order?> UpdateAddress(Order order);
 
+
+        Task<List<Order>> GetAllOrderBasedonCutomerIdAsync(int customerId, int pageSize, int pageIndex);
+
     }
 }

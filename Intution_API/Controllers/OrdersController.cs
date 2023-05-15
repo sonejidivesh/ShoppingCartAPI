@@ -29,9 +29,9 @@ namespace Intution_API.Controllers
         /// <param name="pageIndex"></param>
         /// <returns>It return a json format of the list</returns>
         [HttpGet]
-        public async Task<IActionResult> GetAllOrders(int pageSize = 10, int pageIndex = 1)
+        public async Task<IActionResult> GetAllOrders(int customerId ,int pageSize = 10, int pageIndex = 1 )
         {
-            IEnumerable<Order> orders = await _unitOfWork.Orders.GetAllAsync(pageSize, pageIndex);
+            IEnumerable<Order> orders = await _unitOfWork.Orders.GetAllOrderBasedonCutomerIdAsync(customerId , pageSize, pageIndex);
             return Ok(orders);
         }
 
@@ -70,7 +70,7 @@ namespace Intution_API.Controllers
             orderD.DeliveryAddress = deliveryAddress;
             orderD.Price = GetCartPrice(carts);
             orderD.Product = new List<ProductDTO>();
-
+            orderD.CustomerId = customerId;
             foreach (var item in carts)
             {
                 ProductDTO product = new ProductDTO();
@@ -126,6 +126,7 @@ namespace Intution_API.Controllers
                 DeliveryAddress = ordersDetails.DeliveryAddress,
                 IsActive = true,
                 Price = ordersDetails.Price,
+                CustomerId = ordersDetails.CustomerId,
  
             };
 
@@ -205,7 +206,8 @@ namespace Intution_API.Controllers
             Order order = new Order()
             {
                 Id = orderDetails.Id,
-                DeliveryAddress = orderDetails.DeliveryAddress
+                DeliveryAddress = orderDetails.DeliveryAddress,
+                CustomerId = orderDetails.CustomerId
 
             };
 
@@ -278,7 +280,8 @@ namespace Intution_API.Controllers
                 Id = ordersDetails.Id,
                 DeliveryAddress = ordersDetails.DeliveryAddress,
                 IsActive = false,
-                Price = ordersDetails.Price
+                Price = ordersDetails.Price,
+                CustomerId = ordersDetails.CustomerId,
 
             };
             if (await _unitOfWork.Orders.Delete(order))
